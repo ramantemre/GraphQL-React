@@ -9,7 +9,8 @@ const app = express();
 const cors = require('cors')
 app.use(cors())
 
-// Replace with your mongoLab URI
+// Replace with your mongoLab URI 
+// Get Connection String https://www.mongodb.com/docs/guides/atlas/connection-string/
 const MONGO_URI = 'mongodb+srv://dbUser:dbUserPassword@cluster0.dcaaf.mongodb.net/?retryWrites=true&w=majority';
 if (!MONGO_URI) {
     throw new Error('You must provide a MongoLab URI');
