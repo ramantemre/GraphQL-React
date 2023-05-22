@@ -13,7 +13,7 @@ const SongDetail = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-  if (error) return <p>Error :</p>;
+  if (error) return <div>Error:</div>;
 
   return (
     <div>
@@ -25,7 +25,7 @@ const SongDetail = () => {
   );
 };
 
-const GET_SONGS_LIST = gql`
+export const GET_SONGS_LIST = gql`
   query SongQuery($id: ID!) {
     song(id: $id) {
       id

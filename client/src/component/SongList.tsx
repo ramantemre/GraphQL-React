@@ -7,14 +7,18 @@ const SongList = () => {
   const [mutation] = useMutation(DELETE_MUTUATION);
 
   const onSongDelete = (id: string) => {
-    mutation({ variables: { id } }).then(() => refetch());
+    mutation({ variables: { id }, onCompleted: () => refetch() }); // .then(() => refetch());
   };
 
   const renderSongs = () => {
     return data.songs.map((song: any) => (
       <li key={song.id} className="collection-item">
         <Link to={`/songs/${song.id}`}>{song.title}</Link>
-        <i className="material-icons" onClick={() => onSongDelete(song.id)}>
+        <i
+          className="material-icons"
+          data-testid="delete"
+          onClick={() => onSongDelete(song.id)}
+        >
           delete
         </i>
       </li>
@@ -22,7 +26,7 @@ const SongList = () => {
   };
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :</p>;
+  if (error) return <p>{error.message}</p>;
   return (
     <div>
       <h3>Songs List</h3>
@@ -34,7 +38,7 @@ const SongList = () => {
   );
 };
 
-const GET_SONGS_LIST = gql`
+export const GET_SONGS_LIST = gql`
   {
     songs {
       id
@@ -43,7 +47,7 @@ const GET_SONGS_LIST = gql`
   }
 `;
 
-const DELETE_MUTUATION = gql`
+export const DELETE_MUTUATION = gql`
   mutation DeleteSong($id: ID) {
     deleteSong(id: $id) {
       id

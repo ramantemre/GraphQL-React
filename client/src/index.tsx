@@ -29,7 +29,7 @@ root.render(
       <div className="container">
         <Router>
           <Routes>
-            {/* <Route path="/" element={<App />}> */}
+            {/* <Route path="/" element={<App />} /> */}
             <Route path="/" element={<SongList />} />
             <Route path="songs/new" element={<SongCreate />} />
             <Route path="songs/:id" element={<SongDetail />} />

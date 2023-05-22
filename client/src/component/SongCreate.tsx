@@ -6,15 +6,6 @@ const SongCreate = () => {
   const navigate = useNavigate();
   const [mutation, { data, loading, error }] = useMutation(ADD_SONG);
   const [title, setTitle] = useState("");
-  console.log("useMutation", data, loading, error);
-  const GET_SONG = gql`
-    {
-      songs {
-        id
-        title
-      }
-    }
-  `;
 
   const onSubmit = (event: any) => {
     event.preventDefault();
@@ -24,28 +15,43 @@ const SongCreate = () => {
         title,
       },
       refetchQueries: [{ query: GET_SONG }],
-    }).then(() => navigate("/"));
+      onCompleted: () => navigate("/"),
+    }); // .then(() => navigate("/"));
+  };
+  const handleChange = (event: any) => {
+    setTitle(event?.target.value);
   };
 
   return (
     <div>
       <Link to={"/"}>Back</Link>
       <h3>Create a new Song</h3>
-      <form action="" onSubmit={(event) => onSubmit(event)}>
+      <form action="" aria-label="form-submit" onSubmit={onSubmit}>
         <label htmlFor="">Song Title:</label>
         <input
           type="text"
+          aria-label="song-title"
           value={title}
-          onChange={(event) => setTitle(event.target.value)}
+          //   onChange={(event) => setTitle(event.target.value)}
+          onChange={handleChange}
         />
       </form>
     </div>
   );
 };
 
-const ADD_SONG = gql`
+export const ADD_SONG = gql`
   mutation AddSong($title: String) {
     addSong(title: $title) {
+      id
+      title
+    }
+  }
+`;
+
+export const GET_SONG = gql`
+  {
+    songs {
       id
       title
     }

@@ -7,7 +7,12 @@ declare global {
 }
 
 const App = (props: AppProps) => {
-  return <div className="container">{props.children}</div>;
+  return (
+    <div className="container">
+      <div>learn react</div>
+      {props.children}
+    </div>
+  );
 };
 
 export default App;
